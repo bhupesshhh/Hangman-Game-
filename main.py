@@ -1,4 +1,5 @@
 import pygame
+import math
 
 # Initialise the pygame module
 pygame.init()
@@ -14,11 +15,15 @@ GAP = 15
 letters = []
 startx = round((WIDTH-(RADIUS*2+GAP)*13)/2)
 starty = 400
+A = 65
 
 for i in range(26):
   x = startx + GAP*2 + ((RADIUS*2 + GAP)* (i%13))
   y = starty + ((i//13)* (GAP+RADIUS*2))
-  letters.append([x,y])
+  letters.append([x,y, chr(A+i), True])
+
+# Fonts
+LETTER_FONT = pygame.font.SysFont('comicsans', 30)
 
 # Load images
 images = []
@@ -36,8 +41,11 @@ def draw():
 
   # Draw Buttons
   for letter in letters:
-    x,y = letter
-    pygame.draw.circle(win, BLACK, (x,y), RADIUS, 3 )
+    x, y, ltr, visible = letter
+    if visible:
+      pygame.draw.circle(win, BLACK, (x,y), RADIUS, 3 )
+      text = LETTER_FONT.render(ltr, 1 , BLACK)
+      win.blit(text,(x-text.get_width()/2,y-text.get_height()/2))
 
   win.blit(images[hangman_stats], (100,50))
   pygame.display.update()
@@ -62,7 +70,11 @@ while run:
 
     # Check for the mouse button
     if event.type == pygame.MOUSEBUTTONDOWN:
-      pos = pygame.mouse.get_pos()
-      print(pos)
+      m_x,m_y = pygame.mouse.get_pos()
+      for letter in letters:
+        x,y,ltr, visible = letter
+        dis = math.sqrt((x-m_x)**2+(y-m_y)**2)
+        if dis < RADIUS:
+          letter[3] = False
 
 pygame.quit()
