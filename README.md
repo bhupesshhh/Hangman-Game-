@@ -1,4 +1,4 @@
-Welcome to this beginner python gam called- Hangman Game!!!
+Welcome to this beginner python game called- Hangman Game!!!
 This is a sinple pygame based game built on python.
 
 ## Game Syntax:
@@ -8,7 +8,7 @@ This is a sinple pygame based game built on python.
 4. Update the Result
 5. Game End
 
-I used import, functions, pygame methods, while and nested loops to make this game.
+I used pygame module, functions, while and nested loops to make this game.
 
 ## Contents:
 
